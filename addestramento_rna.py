@@ -9,7 +9,7 @@ from sklearn.preprocessing import StandardScaler
 
 # 1. Caricamento
 
-df = pd.read_csv("./output_elab/roma_subiaco_v2.csv")
+df = pd.read_csv("./output_elab/roma_subiaco_v3.csv")
 X = df.iloc[:, :-1].values # 27 features
 y = df.iloc[:, -1].values  # target_ip
 
@@ -18,7 +18,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 
-joblib.dump(scaler, './output_elab/roma_subiaco_v2.gz')
+joblib.dump(scaler, './output_elab/roma_subiaco_v3.gz')
 # 3. Architettura RNA (Modello di Campo)
 model = models.Sequential([
     layers.Input(shape=(27,)),
@@ -31,6 +31,6 @@ model = models.Sequential([
 model.compile(optimizer='adam', loss='mse', metrics=['mae'])
 print("Addestramento RNA in corso...")
 model.fit(X_train_scaled, y_train, epochs=150, batch_size=32, validation_split=0.2, verbose=1)
-model.save("./output_elab/roma_subiaco_v2.keras")
+model.save("./output_elab/roma_subiaco_v3.keras")
 
 print("Modello salvato.")
